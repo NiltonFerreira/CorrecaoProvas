@@ -6,6 +6,7 @@
 package br.com.noe.provas.dao;
 
 import br.com.noe.provas.model.Aluno;
+import br.com.noe.provas.model.Endereco;
 import java.util.List;
 
 /**
@@ -36,6 +37,11 @@ public class AlunoDao implements IAlunoDao{
 
     @Override
     public List<Aluno> listarAlunos() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Endereco buscarEnderecoAluno(Long id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

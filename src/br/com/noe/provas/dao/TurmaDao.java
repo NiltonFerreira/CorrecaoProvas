@@ -25,6 +25,12 @@ public class TurmaDao implements ITurmaDao {
     private ConnectionFactory connection;
     private java.sql.Connection con;
 
+    public TurmaDao() throws Exception {
+       /* List<Turma> lista = listarTurmas();
+        ListarAlunosTurma(lista);
+        ListarProfessorTurma(lista);*/
+    }
+
     @Override
     public void cadastrarTurma(Turma turma) throws Exception {
         try {
@@ -225,7 +231,7 @@ public class TurmaDao implements ITurmaDao {
     }
 
     @Override
-    public void ListarAlunosTurma(Turma turma) throws Exception {
+    public void ListarAlunosTurma(List<Turma> turmas) throws Exception {
         try {
             Facade facade = new Facade();
             con = ConnectionFactory.getConnection();
@@ -235,26 +241,29 @@ public class TurmaDao implements ITurmaDao {
             String sql = "select * from aluno where idturma=?";
 
             PreparedStatement st = this.con.prepareStatement(sql);
+            for (Turma turma : turmas) {
 
-            st.setLong(1, turma.getId());
+                st.setLong(1, turma.getId());
 
-            ResultSet rs = st.executeQuery();
+                ResultSet rs = st.executeQuery();
 
-            while (rs.next()) {
-                Aluno aluno = facade.buscarAluno(rs.getLong("id"));
-                lista.add(aluno);
+                while (rs.next()) {
+                    Aluno aluno = facade.buscarAluno(rs.getLong("id"));
+                    lista.add(aluno);
+                }
+                turma.setAlunos(lista);
             }
-            turma.setAlunos(lista);
             con.close();
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_EDITAR_TURMA));
+            throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_ASSOCIACAO_ALUNO));
         }
     }
 
     @Override
-    public void ListarProfessorTurma(Turma turma) throws Exception {
+    public void ListarProfessorTurma(List<Turma> turmas) throws Exception {
+
         try {
             Facade facade = new Facade();
             con = ConnectionFactory.getConnection();
@@ -264,21 +273,23 @@ public class TurmaDao implements ITurmaDao {
             String sql = "select * from alocacao where idturma=?";
 
             PreparedStatement st = this.con.prepareStatement(sql);
+            for (Turma turma : turmas) {
+                st.setLong(1, turma.getId());
 
-            st.setLong(1, turma.getId());
+                ResultSet rs = st.executeQuery();
 
-            ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                Professor professor = facade.buscarProfessor(rs.getLong("idprofessor"));
-                lista.add(professor);
+                while (rs.next()) {
+                    Professor professor = facade.buscarProfessor(rs.getLong("idprofessor"));
+                    lista.add(professor);
+                }
+                buscarTurma(turma.getId()).setProfessores(lista);
             }
-            turma.setProfessores(lista);
             con.close();
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_EDITAR_TURMA));
+            throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_ASSOCIACAO_PROFESSOR));
         }
+
     }
 }

@@ -5,6 +5,7 @@
  */
 package br.com.noe.provas.dao;
 
+import br.com.noe.provas.model.Endereco;
 import br.com.noe.provas.model.Professor;
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface IProfessorDao {
     public Professor buscarProfessor(Long id) throws Exception;
 
     public void atualizarProfessor(Professor professor) throws Exception;
+
+    public Endereco buscarEnderecoProfessor(Long id) throws Exception;
 
     public void deletarProfessor(Professor professor) throws Exception;
 

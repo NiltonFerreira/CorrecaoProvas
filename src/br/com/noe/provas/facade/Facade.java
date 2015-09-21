@@ -9,6 +9,7 @@ import br.com.noe.provas.dao.IAlunoDao;
 import br.com.noe.provas.dao.IProfessorDao;
 import br.com.noe.provas.dao.ITurmaDao;
 import br.com.noe.provas.model.Aluno;
+import br.com.noe.provas.model.Endereco;
 import br.com.noe.provas.model.Professor;
 import br.com.noe.provas.model.Turma;
 import br.com.noe.provas.util.DaoFactory;
@@ -24,7 +25,7 @@ public class Facade implements IFacade {
     private IProfessorDao professorDao;
     private ITurmaDao turmaDao;
 
-    public Facade() {
+    public Facade() throws Exception {
         alunoDao = DaoFactory.createAlunoDao();
         professorDao = DaoFactory.createProfessorDao();
         turmaDao = DaoFactory.createTurmaDao();
@@ -41,8 +42,8 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public void atualizarTurma(Turma turma) throws Exception {
-        turmaDao.atualizarTurma(turma);
+    public void editarTurma(Turma turma) throws Exception {
+        turmaDao.editarTurma(turma);
     }
 
     @Override
@@ -103,6 +104,36 @@ public class Facade implements IFacade {
     @Override
     public List<Professor> listarProfessor() throws Exception {
         return professorDao.listarProfessor();
+    }
+
+    @Override
+    public Endereco buscarEnderecoAluno(Long id) throws Exception {
+        return alunoDao.buscarEnderecoAluno(id);
+    }
+
+    @Override
+    public void alocarProfessor(Turma turma, Professor professor) throws Exception {
+        turmaDao.alocarProfessor(turma, professor);
+    }
+
+    @Override
+    public void matricularAluno(Turma turma, Aluno aluno) throws Exception {
+        turmaDao.matricularAluno(turma, aluno);
+    }
+
+    @Override
+    public void ListarAlunosTurma(List<Turma> turmas) throws Exception {
+        turmaDao.ListarAlunosTurma(turmas);
+    }
+
+    @Override
+    public void ListarProfessorTurma(List<Turma> turmas) throws Exception {
+        turmaDao.ListarProfessorTurma(turmas);
+    }
+
+    @Override
+    public Endereco buscarEnderecoProfessor(Long id) throws Exception {
+        return professorDao.buscarEnderecoProfessor(id);
     }
 
 }

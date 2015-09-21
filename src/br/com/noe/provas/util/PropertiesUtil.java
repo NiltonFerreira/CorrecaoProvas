@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
  */
 public class PropertiesUtil {
 
-    private static final String FILE_NAME = "b.com.noe.provas.util.config";
+    private static final String FILE_NAME = "br.com.noe.provas.util.config";
 
     public static final String KEY_JDBC_URL = "jdbc_url";
     public static final String KEY_JDBC_LOGIN = "jdbc_login";

@@ -6,6 +6,7 @@
 package br.com.noe.provas.dao;
 
 import br.com.noe.provas.model.Aluno;
+import br.com.noe.provas.model.Endereco;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public interface IAlunoDao {
     public void atualizarAluno(Aluno aluno) throws Exception;
 
     public void deletarAluno(Aluno aluno) throws Exception;
+    
+    public Endereco buscarEnderecoAluno(Long id) throws Exception;
 
     public List<Aluno> listarAlunos() throws Exception;
 

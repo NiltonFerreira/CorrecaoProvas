@@ -17,16 +17,20 @@ import java.util.List;
 public interface ITurmaDao {
 
     public void cadastrarTurma(Turma turma) throws Exception;
-    
-    public void alocarProfessor (Turma turma, Professor professor) throws Exception;
-    
-    public void matricularAluno (Turma turma, Aluno aluno) throws Exception;
+
+    public void alocarProfessor(Turma turma, Professor professor) throws Exception;
+
+    public void matricularAluno(Turma turma, Aluno aluno) throws Exception;
 
     public Turma buscarTurma(Long id) throws Exception;
 
-    public void atualizarTurma(Turma turma) throws Exception;
+    public void editarTurma(Turma turma) throws Exception;
 
     public void fecharTurma(Turma turma) throws Exception;
 
     public List<Turma> listarTurmas() throws Exception;
+
+    public void ListarAlunosTurma(List<Turma> turmas) throws Exception;
+
+    public void ListarProfessorTurma(List<Turma> turmas) throws Exception;
 }

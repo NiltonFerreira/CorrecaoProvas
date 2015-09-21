@@ -10,5 +10,9 @@ package br.com.noe.provas.model;
  * @author Nilton
  */
 public class Aluno extends Pessoa{
+
+    public Aluno(String nome, String cpf, Endereco endereco) {
+        super(nome,cpf,endereco);
+    }
     
 }
