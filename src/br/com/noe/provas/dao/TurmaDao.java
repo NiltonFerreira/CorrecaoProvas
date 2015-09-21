@@ -13,6 +13,7 @@ import br.com.noe.provas.util.ConnectionFactory;
 import br.com.noe.provas.util.PropertiesUtil;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,7 +85,6 @@ public class TurmaDao implements ITurmaDao {
             throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_ALOCACAO));
 
         }
-
     }
 
     @Override
@@ -102,6 +102,7 @@ public class TurmaDao implements ITurmaDao {
             st.setString(1, aluno.getNome());
             st.setString(2, aluno.getCpf());
             st.setLong(3, turma.getId());
+            st.setLong(4, aluno.getId());
 
             st.executeUpdate();
             con.close();
@@ -154,18 +155,130 @@ public class TurmaDao implements ITurmaDao {
     }
 
     @Override
-    public void atualizarTurma(Turma turma) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editarTurma(Turma turma) throws Exception {
+        try {
+            PreparedStatement st;
+            String sql;
+
+            con = ConnectionFactory.getConnection();
+
+            sql = "update turma set nome=?, ano=? where id=?";
+
+            st = con.prepareStatement(sql);
+
+            st.setString(1, turma.getNome());
+            st.setInt(2, turma.getAno());
+            st.setLong(3, turma.getId());
+
+            st.executeUpdate();
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_EDITAR_TURMA));
+        }
     }
 
     @Override
     public void fecharTurma(Turma turma) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            con = ConnectionFactory.getConnection();
+
+            String sql = "delete from turma where id = ?";
+
+            PreparedStatement st = con.prepareStatement(sql);
+
+            st.setLong(1, turma.getId());
+
+            st.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_DELETAR_TURMA));
+        }
     }
 
     @Override
     public List<Turma> listarTurmas() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            con = ConnectionFactory.getConnection();
+
+            List<Turma> lista = new ArrayList<Turma>();
+
+            String sql = "select * from turma";
+
+            PreparedStatement st = this.con.prepareStatement(sql);
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Turma turma = new Turma(rs.getString("nome"), rs.getInt("ano"));
+                turma.setId(rs.getLong("id"));
+                lista.add(turma);
+            }
+            con.close();
+            return lista;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_EDITAR_TURMA));
+        }
     }
 
+    @Override
+    public void ListarAlunosTurma(Turma turma) throws Exception {
+        try {
+            Facade facade = new Facade();
+            con = ConnectionFactory.getConnection();
+
+            List<Aluno> lista = new ArrayList<Aluno>();
+
+            String sql = "select * from aluno where idturma=?";
+
+            PreparedStatement st = this.con.prepareStatement(sql);
+
+            st.setLong(1, turma.getId());
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Aluno aluno = facade.buscarAluno(rs.getLong("id"));
+                lista.add(aluno);
+            }
+            turma.setAlunos(lista);
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_EDITAR_TURMA));
+        }
+    }
+
+    @Override
+    public void ListarProfessorTurma(Turma turma) throws Exception {
+        try {
+            Facade facade = new Facade();
+            con = ConnectionFactory.getConnection();
+
+            List<Professor> lista = new ArrayList<Professor>();
+
+            String sql = "select * from alocacao where idturma=?";
+
+            PreparedStatement st = this.con.prepareStatement(sql);
+
+            st.setLong(1, turma.getId());
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Professor professor = facade.buscarProfessor(rs.getLong("idprofessor"));
+                lista.add(professor);
+            }
+            turma.setProfessores(lista);
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(PropertiesUtil.getStringValue(PropertiesUtil.MSG_ERRO_EDITAR_TURMA));
+        }
+    }
 }
