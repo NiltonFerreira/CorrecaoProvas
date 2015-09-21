@@ -38,9 +38,11 @@ public class PropertiesUtil {
     public static final String MSG_ERRO_LISTAR_ALUNO = "msg_erro_listar_aluno";
     public static final String MSG_ERRO_LISTAR_PROFESSOR = "msg_erro_listar_professor";
     public static final String MSG_ERRO_LISTAR_TURMA = "msg_erro_listar_turma";
-    
+
     public static final String MSG_ERRO_ALOCACAO = "msg_erro_alocacao";
     public static final String MSG_ERRO_MATRICULA = "msg_erro_matricular";
+    public static final String MSG_ERRO_ASSOCIACAO_PROFESSOR = "msg_erro_associacao_professor"; 
+    public static final String MSG_ERRO_ASSOCIACAO_ALUNO = "msg_erro_associacao_aluno";
 
     public static final ResourceBundle bundle = ResourceBundle.getBundle(FILE_NAME);
 

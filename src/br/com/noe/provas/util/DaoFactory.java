@@ -26,7 +26,7 @@ public class DaoFactory {
         return new ProfessorDao();
     }
 
-    public static ITurmaDao createTurmaDao() {
+    public static ITurmaDao createTurmaDao() throws Exception {
         return new TurmaDao();
     }
 
