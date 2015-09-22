@@ -52,12 +52,12 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public List<Turma> listarTurmas() throws Exception {
+    public List<Turma> listarTurmas() throws Exception{
         return turmaDao.listarTurmas();
     }
 
     @Override
-    public void cadastrarAluno(Aluno aluno) {
+    public void cadastrarAluno(Aluno aluno)throws Exception {
         alunoDao.cadastrarAluno(aluno);
     }
 

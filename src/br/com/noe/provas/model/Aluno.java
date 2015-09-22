@@ -14,5 +14,9 @@ public class Aluno extends Pessoa{
     public Aluno(String nome, String cpf, Endereco endereco) {
         super(nome,cpf,endereco);
     }
+
+    public Aluno() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

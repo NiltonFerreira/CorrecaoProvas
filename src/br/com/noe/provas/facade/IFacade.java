@@ -36,7 +36,7 @@ public interface IFacade {
     public void ListarProfessorTurma(List<Turma> turmas) throws Exception;
 //...............................................................................
 
-    public void cadastrarAluno(Aluno aluno);
+    public void cadastrarAluno(Aluno aluno)throws Exception;
 
     public Aluno buscarAluno(Long id) throws Exception;
 
@@ -49,7 +49,7 @@ public interface IFacade {
     public List<Aluno> listarAlunos() throws Exception;
 //...............................................................................
 
-    public void cadastrarProfessor(Professor professor);
+    public void cadastrarProfessor(Professor professor)throws Exception;
 
     public Professor buscarProfessor(Long id) throws Exception;
 

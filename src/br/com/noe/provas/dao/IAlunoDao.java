@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface IAlunoDao {
 
-    public void cadastrarAluno(Aluno aluno);
+    public void cadastrarAluno(Aluno aluno)throws Exception;
 
     public Aluno buscarAluno(Long id) throws Exception;
 

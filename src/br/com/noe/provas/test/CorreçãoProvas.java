@@ -10,7 +10,7 @@ import br.com.noe.provas.model.Aluno;
 import br.com.noe.provas.model.Endereco;
 import br.com.noe.provas.model.Professor;
 import br.com.noe.provas.model.Turma;
-import static java.time.Clock.system;
+
 import java.util.List;
 
 /**
